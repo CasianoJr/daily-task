@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import { taskIdListState, taskStateFamily } from "../../store";
-import { useRecoilValue } from "recoil";
+import { selectedIdState, taskIdListState, taskStateFamily } from "../../store";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export const TaskListPage = () => {
   const taskIdList = useRecoilValue(taskIdListState);
@@ -29,9 +29,17 @@ export default TaskListPage;
 
 const MapTaskList = ({ id }: { id: string }) => {
   const task = useRecoilValue(taskStateFamily(id));
+  const setSelectedId = useSetRecoilState(selectedIdState);
+  const handleSelectId = () => {
+    setSelectedId(id);
+  };
 
   return (
-    <button className="single-task" style={{ backgroundColor: task.theme }}>
+    <button
+      className="single-task"
+      onClick={handleSelectId}
+      style={{ backgroundColor: task.theme }}
+    >
       <div className="single-task-title">{task.title}</div>
       <div className="task-note">
         <div className="task-time">{task.runningTime.toFixed(1)}</div>
