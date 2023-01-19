@@ -6,10 +6,9 @@
 
 .app-wrapper {
   max-width: 500px;
-  min-width: 400px;
+  width: 500px;
   margin: auto;
-  min-height: 600px;
-  border: 1px solid blue;
+  min-height: 800px;
   background-color: #ffffff;
 }
 
@@ -73,6 +72,12 @@
     width: 80px;
     justify-content: space-between;
   }
+}
+
+// vertical-line
+.vertical-line {
+  height: 100vh;
+  border: 1px solid black;
 }
 
 /* TaskDetailPage */

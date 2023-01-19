@@ -11,6 +11,7 @@ const App = () => {
       <PageWrapper>
         <TaskListPage />
       </PageWrapper>
+      <div className="vertical-line"></div>
       <PageWrapper>
         <TaskDetailPage />
       </PageWrapper>
