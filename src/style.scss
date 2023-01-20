@@ -10,6 +10,12 @@
   margin: auto;
   min-height: 800px;
   background-color: #ffffff;
+  overflow-y: scroll;
+  max-height: 100vh;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
 }
 
 /* TaskListPage */
