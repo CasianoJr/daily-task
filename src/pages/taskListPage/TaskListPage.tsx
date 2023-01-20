@@ -1,14 +1,35 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import { selectedIdState, taskIdListState, taskStateFamily } from "../../store";
+import { modalTaskState, selectedIdState, taskIdListState, taskStateFamily } from "../../store";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+
+const uuid = () => {
+  return Date.now().toString();
+};
 
 export const TaskListPage = () => {
   const taskIdList = useRecoilValue(taskIdListState);
+  const setModal = useSetRecoilState(modalTaskState);
+
+  const handleAddBtn = () => {
+    setModal({
+      open: true,
+      payload: {
+        id: uuid(),
+        title: "",
+        runningTime: 0,
+        originalTime: 0,
+        theme: "",
+        timeCreated: 0,
+        isRunning: false,
+        timeUpdated: 0,
+      },
+    });
+  };
 
   return (
     <>
-      <div className="task-create-wrap-btn">
+      <div className="task-create-wrap-btn" onClick={handleAddBtn}>
         <button>
           <Icon icon="material-symbols:add" width={"100%"} />
         </button>

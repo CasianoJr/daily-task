@@ -1,6 +1,7 @@
 import React from "react";
 import { useLoadDefault } from "./hooks/useLoadDefaults";
 import { PageWrapper } from "./layouts/PageWrapper";
+import ConfigureTaskDialog from "./pages/configureTaskDialog/ConfigureTaskDialog";
 import { TaskDetailPage } from "./pages/taskDetailPage/TaskDetailPage";
 import { TaskListPage } from "./pages/taskListPage/TaskListPage";
 
@@ -15,6 +16,7 @@ const App = () => {
       <PageWrapper>
         <TaskDetailPage />
       </PageWrapper>
+      <ConfigureTaskDialog />
     </div>
   );
 };

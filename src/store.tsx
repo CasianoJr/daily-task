@@ -72,3 +72,20 @@ export const taskDetailsSelector = selector<string | any>({
     }
   },
 });
+
+export const modalTaskState = atom<{ open: boolean; payload: TaskProps }>({
+  key: "modalTaskState",
+  default: {
+    open: false,
+    payload: {
+      id: "",
+      title: "",
+      runningTime: 0,
+      originalTime: 0,
+      theme: "",
+      timeCreated: 0,
+      isRunning: false,
+      timeUpdated: 0,
+    },
+  },
+});

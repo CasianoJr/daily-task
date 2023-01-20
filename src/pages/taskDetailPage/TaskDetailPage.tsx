@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { selectedIdState, taskDetailsSelector } from "../../store";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { modalTaskState, selectedIdState, taskDetailsSelector } from "../../store";
 
 export const TaskDetailPage = () => {
   const selectedId = useRecoilValue(selectedIdState);
   const [task, setTaskDetails] = useRecoilState<any>(taskDetailsSelector);
   const timerId = useRef<any>();
   const [count, setCount] = useState(0);
+  const setModal = useSetRecoilState(modalTaskState);
 
   useEffect(() => {
     timerId.current = setInterval(() => {
@@ -31,14 +32,15 @@ export const TaskDetailPage = () => {
   const handleStop = () => setTaskDetails("stop");
   const handlePlay = () => setTaskDetails("play");
 
+  const handleEditBtn = () => {
+    setModal({ open: true, payload: task });
+  };
   if (!task) return null;
 
   return (
     <div>
       <div className="task-create-wrap-btn">
-        <button>
-         Edit
-        </button>
+        <button onClick={handleEditBtn}>Edit</button>
       </div>
       <div className="detail-wrapper" style={{ backgroundColor: task.theme }}>
         <div className="detail-row-1">
