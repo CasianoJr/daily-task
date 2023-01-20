@@ -5,7 +5,7 @@ import { taskIdListState, taskStateFamily } from "../store";
 const defaultTasks = [
   {
     id: "1",
-    title: "Desing the app",
+    title: "Design the app",
     runningTime: 120,
     theme: "#ffff00",
     timeCreated: Date.now(),
@@ -25,7 +25,7 @@ const defaultTasks = [
   },
   {
     id: "3",
-    title: "Launch with family",
+    title: "Lunch with family",
     runningTime: 60,
     theme: "#f89497",
     timeCreated: Date.now(),

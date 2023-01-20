@@ -42,8 +42,9 @@ export const taskDetailsSelector = selector<string | any>({
     if (cmd === "update" && task.isRunning) {
       set(taskStateFamily(selectedId), (v) => ({
         ...v,
-        runningTime: v.runningTime - 1 / 60,
+        runningTime: v.runningTime - 1 / 60 < 0 ? 0 : v.runningTime - 1 / 60,
         timeUpdated: Date.now(),
+        isRunning: v.runningTime - 1 / 60 < 0 ? false : true,
       }));
     }
     if (cmd === "play") {
