@@ -1,28 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { modalTaskState, selectedIdState, taskDetailsSelector } from "../../store";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { modalTaskState, taskDetailsSelector } from "../../store";
 
 export const TaskDetailPage = () => {
-  const selectedId = useRecoilValue(selectedIdState);
   const [task, setTaskDetails] = useRecoilState<any>(taskDetailsSelector);
   const timerId = useRef<any>();
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState({});
   const setModal = useSetRecoilState(modalTaskState);
 
   useEffect(() => {
     timerId.current = setInterval(() => {
-      setCount((v) => v + 1);
+      setCount({});
     }, 1000);
     return () => {
       clearInterval(timerId.current);
       setCount(0);
     };
   }, []);
-
-  useEffect(() => {
-    setTaskDetails("init");
-  }, [selectedId]);
 
   useEffect(() => {
     setTaskDetails("update");
@@ -37,6 +32,11 @@ export const TaskDetailPage = () => {
   };
   if (!task) return null;
 
+  const minutes = Math.floor(task.runningTime);
+  const seconds = Math.floor((task.runningTime - minutes) * 60)
+    .toString()
+    .padStart(2, "0");
+
   return (
     <div>
       <div className="task-create-wrap-btn">
@@ -50,13 +50,13 @@ export const TaskDetailPage = () => {
               <span>
                 <Icon icon="material-symbols:hourglass-bottom-rounded" width={40} />
               </span>
-              <span>{Math.floor(task.originalTime - task.runningTime)}</span>
+              <span>{(task.originalTime - task.runningTime).toFixed(1)}</span>
             </div>
           </div>
           <div className="detail-elapsed-left-wrap">
             <div className="col-1-title"> Minitues Remaining</div>
             <div className="col-1-timed-wrap">
-              <span>{Math.floor(task.runningTime)}</span>
+              <span>{task.runningTime.toFixed(1)}</span>
               <span>
                 <Icon icon="material-symbols:hourglass-top-rounded" width={40} />
               </span>
@@ -68,10 +68,7 @@ export const TaskDetailPage = () => {
           <div className="detail-main-title">{task.title}</div>
           <div className="detail-main-time">
             <div className="detail-time">
-              {Math.floor(task.runningTime)} :{" "}
-              {Math.ceil((task.runningTime * 60) % 60)
-                .toString()
-                .padStart(2, "0")}
+              {minutes} :{seconds}
             </div>
             <div className="detail-time-label">
               <div>Minutes</div>

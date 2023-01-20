@@ -8,5 +8,6 @@ type TaskProps = {
   theme: string;
   timeCreated: number;
   isRunning: boolean;
-  timeUpdated: number;
+  timeLastPlay: number;
+  timeRunPause: number;
 };

@@ -15,7 +15,8 @@ export const taskStateFamily = atomFamily({
     theme: "#ffff00",
     timeCreated: Date.now(),
     isRunning: false,
-    timeUpdated: Date.now(),
+    timeLastPlay: Date.now(),
+    timeRunPause: Date.now(),
   },
 });
 
@@ -48,34 +49,32 @@ export const taskDetailsSelector = selector<string | any>({
     if (cmd === "update" && task.isRunning) {
       set(taskStateFamily(selectedId), (v) => ({
         ...v,
-        runningTime: v.runningTime - 1 / 60 < 0 ? 0 : v.runningTime - 1 / 60,
-        timeUpdated: Date.now(),
-        isRunning: v.runningTime - 1 / 60 < 0 ? false : true,
+        runningTime: v.timeRunPause - (Date.now() - task.timeLastPlay) / 1000 / 60,
+        isRunning: v.runningTime - 1 / 30 < 0 ? false : true,
       }));
     }
-    if (cmd === "play") {
-      set(taskStateFamily(selectedId), (v) => ({ ...v, isRunning: true, timeUpdated: Date.now() }));
+    if (cmd === "play" && !task.isRunning && task.runningTime - 1 / 60 > 0) {
+      set(taskStateFamily(selectedId), (v) => ({
+        ...v,
+        isRunning: true,
+        timeLastPlay: Date.now(),
+      }));
     }
 
     if (cmd === "pause") {
-      set(taskStateFamily(selectedId), (v) => ({ ...v, isRunning: false }));
+      set(taskStateFamily(selectedId), (v) => ({
+        ...v,
+        isRunning: false,
+        timeRunPause: v.runningTime,
+      }));
     }
     if (cmd === "stop") {
       set(taskStateFamily(selectedId), (v) => ({
         ...v,
         isRunning: false,
         runningTime: v.originalTime,
+        timeRunPause: v.originalTime,
       }));
-    }
-    if (cmd === "init" && task.isRunning) {
-      const millisec = Date.now() - task.timeUpdated;
-      const sec = task.runningTime * 60 - millisec / 1000;
-      if (sec > 0) {
-        set(taskStateFamily(selectedId), (v) => ({
-          ...v,
-          runningTime: sec < 0 ? v.runningTime : sec / 60,
-        }));
-      }
     }
   },
 });
@@ -92,7 +91,8 @@ export const modalTaskState = atom<{ open: boolean; payload: TaskProps }>({
       theme: "",
       timeCreated: 0,
       isRunning: false,
-      timeUpdated: 0,
+      timeLastPlay: 0,
+      timeRunPause: 0,
     },
   },
 });

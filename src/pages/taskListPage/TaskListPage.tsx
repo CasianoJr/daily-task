@@ -22,7 +22,8 @@ export const TaskListPage = () => {
         theme: "#ffff00",
         timeCreated: 0,
         isRunning: false,
-        timeUpdated: 0,
+        timeLastPlay: 0,
+        timeRunPause: 0,
       },
     });
   };

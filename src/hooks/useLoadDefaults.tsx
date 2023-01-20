@@ -10,8 +10,9 @@ const defaultTasks = [
     theme: "#ffff00",
     timeCreated: Date.now(),
     isRunning: false,
-    timeUpdated: Date.now(),
     originalTime: 120,
+    timeLastPlay: Date.now(),
+    timeRunPause: 120,
   },
   {
     id: "2",
@@ -20,8 +21,9 @@ const defaultTasks = [
     theme: "#add8a3",
     timeCreated: Date.now(),
     isRunning: false,
-    timeUpdated: Date.now(),
     originalTime: 30,
+    timeLastPlay: Date.now(),
+    timeRunPause: 30,
   },
   {
     id: "3",
@@ -30,8 +32,9 @@ const defaultTasks = [
     theme: "#f89497",
     timeCreated: Date.now(),
     isRunning: false,
-    timeUpdated: Date.now(),
     originalTime: 60,
+    timeLastPlay: Date.now(),
+    timeRunPause: 60,
   },
 ];
 

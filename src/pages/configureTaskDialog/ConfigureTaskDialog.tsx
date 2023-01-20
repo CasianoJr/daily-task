@@ -32,7 +32,7 @@ const ConfigureTaskDialog = () => {
       ...localTask,
       runningTime: localTask.originalTime,
       timeCreated: Date.now(),
-      timeUpdated: Date.now(),
+      timeRunPause: localTask.originalTime,
     };
     if (!(await taskIdList).includes(taskToSave.id)) {
       set(taskIdListState, (v) => [...v, taskToSave.id]);
