@@ -12,10 +12,12 @@ export const useUpdateRunning = (time = 5000) => {
     taskIdList.forEach(async (id) => {
       const task: any = await snapshot.getPromise(taskStateFamily(id));
       if (task.isRunning) {
+        const runT = task.timeRunPause - (Date.now() - task.timeLastPlay) / 1000 / 60;
+        const runningTime = runT < 0 ? 0 : runT;
         set(taskStateFamily(id), (v) => ({
           ...v,
-          runningTime: v.timeRunPause - (Date.now() - task.timeLastPlay) / 1000 / 60,
-          isRunning: v.runningTime - 1 / 30 < 0 ? false : true,
+          runningTime,
+          isRunning: runningTime === 0 ? false : true,
         }));
       }
     });
