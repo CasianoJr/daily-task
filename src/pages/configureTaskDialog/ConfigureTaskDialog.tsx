@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { useRecoilCallback, useRecoilState } from "recoil";
 import { modalTaskState, taskIdListState, taskStateFamily } from "../../store";
@@ -6,11 +6,16 @@ import { modalTaskState, taskIdListState, taskStateFamily } from "../../store";
 const ConfigureTaskDialog = () => {
   const [{ open, payload }, setModal] = useRecoilState(modalTaskState);
   const [localTask, setLocalTask] = useState(payload);
+  const modalRef = useRef<any>();
 
   useEffect(() => {
     setLocalTask(payload);
   }, [payload.id]);
 
+  useEffect(() => {
+    if (open) modalRef.current.focus();
+  }, [open]);
+  
   const handleClose = () => {
     setModal((v) => ({ ...v, open: false }));
   };
@@ -22,10 +27,17 @@ const ConfigureTaskDialog = () => {
 
   const handleSave = useRecoilCallback(({ snapshot, set }) => async () => {
     const taskIdList = snapshot.getPromise(taskIdListState);
-    set(taskStateFamily(localTask.id), localTask);
-    if (!(await taskIdList).includes(localTask.id)) {
-      set(taskIdListState, (v) => [...v, localTask.id]);
+    let taskToSave: TaskProps = localTask;
+    if (!(await taskIdList).includes(taskToSave.id)) {
+      set(taskIdListState, (v) => [...v, taskToSave.id]);
+      taskToSave = {
+        ...taskToSave,
+        runningTime: localTask.originalTime,
+        timeCreated: Date.now(),
+        timeUpdated: Date.now(),
+      };
     }
+    set(taskStateFamily(taskToSave.id), taskToSave);
     handleClose();
   });
 
@@ -36,6 +48,7 @@ const ConfigureTaskDialog = () => {
         <div className="modal-content-wrap">
           <div className="modal-div">
             <input
+              ref={modalRef}
               className="modal-title-input"
               onChange={handleChange}
               name="title"
