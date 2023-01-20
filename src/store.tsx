@@ -26,7 +26,13 @@ export const taskIdListState = atom<string[]>({
 
 export const selectedIdState = atom<string>({
   key: "selectedIdState",
-  default: "",
+  default: selector({
+    key: "selectedIdState/defau",
+    get: ({ get }) => {
+      const taskListId = get(taskIdListState);
+      return taskListId[0];
+    },
+  }),
 });
 
 export const taskDetailsSelector = selector<string | any>({
