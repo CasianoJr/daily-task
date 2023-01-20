@@ -15,7 +15,7 @@ const ConfigureTaskDialog = () => {
   useEffect(() => {
     if (open) modalRef.current.focus();
   }, [open]);
-  
+
   const handleClose = () => {
     setModal((v) => ({ ...v, open: false }));
   };
@@ -27,15 +27,14 @@ const ConfigureTaskDialog = () => {
 
   const handleSave = useRecoilCallback(({ snapshot, set }) => async () => {
     const taskIdList = snapshot.getPromise(taskIdListState);
-    let taskToSave: TaskProps = localTask;
+    const taskToSave: TaskProps = {
+      ...localTask,
+      runningTime: localTask.originalTime,
+      timeCreated: Date.now(),
+      timeUpdated: Date.now(),
+    };
     if (!(await taskIdList).includes(taskToSave.id)) {
       set(taskIdListState, (v) => [...v, taskToSave.id]);
-      taskToSave = {
-        ...taskToSave,
-        runningTime: localTask.originalTime,
-        timeCreated: Date.now(),
-        timeUpdated: Date.now(),
-      };
     }
     set(taskStateFamily(taskToSave.id), taskToSave);
     handleClose();
@@ -66,6 +65,7 @@ const ConfigureTaskDialog = () => {
               className="modal-length-input"
               onChange={handleChange}
               type="number"
+              min="0"
               name={"originalTime"}
               value={localTask.originalTime}
             ></input>
