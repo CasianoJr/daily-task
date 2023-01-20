@@ -19,7 +19,7 @@ export const TaskListPage = () => {
         title: "",
         runningTime: 0,
         originalTime: 0,
-        theme: "",
+        theme: "#ffff00",
         timeCreated: 0,
         isRunning: false,
         timeUpdated: 0,

@@ -184,6 +184,13 @@
   border-bottom: 1px solid black;
 }
 
+.modal-div-1 {
+  display: flex;
+  span {
+    padding: 3px;
+  }
+}
+
 .modal-content-wrap {
   display: flex;
   flex-direction: column;
@@ -223,7 +230,7 @@
   width: 400px;
 }
 .modal-length-input {
-  width: 300px;
+  width: 190px;
   border: none;
   outline: none;
   text-align: right;
