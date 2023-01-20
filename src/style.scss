@@ -81,6 +81,13 @@
   }
 }
 
+.active-task {
+  box-shadow: 0px 0px 8px;
+  .single-task-title {
+    transform: scale(1.1);
+  }
+}
+
 // vertical-line
 .vertical-line {
   height: 100vh;

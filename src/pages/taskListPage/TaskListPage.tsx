@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { modalTaskState, selectedIdState, taskIdListState, taskStateFamily } from "../../store";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 const uuid = () => {
   return Date.now().toString();
@@ -50,15 +50,16 @@ export default TaskListPage;
 
 const MapTaskList = ({ id }: { id: string }) => {
   const task = useRecoilValue(taskStateFamily(id));
-  const setSelectedId = useSetRecoilState(selectedIdState);
+  const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
   const handleSelectId = () => {
     setSelectedId(id);
   };
 
   return (
     <button
-      className="single-task"
+      className={`single-task ${selectedId === id && "active-task"}`}
       onClick={handleSelectId}
+      onFocus={handleSelectId}
       style={{ backgroundColor: task.theme }}
     >
       <div className="single-task-title">{task.title}</div>

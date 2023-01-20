@@ -92,7 +92,12 @@ const ConfigureTaskDialog = () => {
           <button className="modal-btn-cancel btn-div" onClick={handleClose}>
             Cancel
           </button>
-          <button className="modal-btn-save btn-div" onClick={handleSave}>
+          <button
+            className={`modal-btn-save ${localTask.title && "btn-div"}`}
+            style={localTask.title ? {} : { backgroundColor: "grey", cursor: "not-allowed" }}
+            onClick={handleSave}
+            disabled={!localTask.title}
+          >
             Save
           </button>
         </div>
