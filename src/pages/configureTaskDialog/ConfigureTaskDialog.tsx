@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
-import { useRecoilCallback, useRecoilState } from "recoil";
-import { modalTaskState, taskIdListState, taskStateFamily } from "../../store";
+import { useRecoilCallback, useRecoilState, useSetRecoilState } from "recoil";
+import { modalTaskState, selectedIdState, taskIdListState, taskStateFamily } from "../../store";
 
 const ConfigureTaskDialog = () => {
   const [{ open, payload }, setModal] = useRecoilState(modalTaskState);
   const [localTask, setLocalTask] = useState(payload);
+  const setSelectedId = useSetRecoilState(selectedIdState);
   const modalRef = useRef<any>();
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const ConfigureTaskDialog = () => {
       set(taskIdListState, (v) => [...v, taskToSave.id]);
     }
     set(taskStateFamily(taskToSave.id), taskToSave);
+    setSelectedId(taskToSave.id);
     handleClose();
   });
 
