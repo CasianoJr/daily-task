@@ -96,3 +96,8 @@ export const modalTaskState = atom<{ open: boolean; payload: TaskProps }>({
     },
   },
 });
+
+export const priorityPageState = atom<"listPage" | "detailPage">({
+  key: "priorityPageState",
+  default: "listPage",
+});

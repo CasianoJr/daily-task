@@ -1,6 +1,12 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import { modalTaskState, selectedIdState, taskIdListState, taskStateFamily } from "../../store";
+import {
+  modalTaskState,
+  priorityPageState,
+  selectedIdState,
+  taskIdListState,
+  taskStateFamily,
+} from "../../store";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 const uuid = () => {
@@ -52,7 +58,10 @@ export default TaskListPage;
 const MapTaskList = ({ id }: { id: string }) => {
   const task = useRecoilValue(taskStateFamily(id));
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
+  const setPriorityPage = useSetRecoilState(priorityPageState);
+
   const handleSelectId = () => {
+    setPriorityPage("detailPage");
     setSelectedId(id);
   };
 

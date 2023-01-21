@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { modalTaskState, taskDetailsSelector } from "../../store";
+import { modalTaskState, priorityPageState, taskDetailsSelector } from "../../store";
+import { useMobileQueryPage } from "../../hooks/useMobileQueryPage";
 
 export const TaskDetailPage = () => {
   const [task, setTaskDetails] = useRecoilState<any>(taskDetailsSelector);
   const timerId = useRef<any>();
   const [count, setCount] = useState({});
   const setModal = useSetRecoilState(modalTaskState);
+  const priority = useMobileQueryPage();
+  const setPriorityPage = useSetRecoilState(priorityPageState);
 
   useEffect(() => {
     timerId.current = setInterval(() => {
@@ -27,6 +30,10 @@ export const TaskDetailPage = () => {
   const handleStop = () => setTaskDetails("stop");
   const handlePlay = () => setTaskDetails("play");
 
+  const handleBack = () => {
+    setPriorityPage("listPage");
+  };
+
   const handleEditBtn = () => {
     setModal({ open: true, payload: task });
   };
@@ -40,6 +47,12 @@ export const TaskDetailPage = () => {
   return (
     <div>
       <div className="task-create-wrap-btn">
+        {priority && (
+          <button onClick={handleBack} style={{ marginRight: "auto" }}>
+            Back
+          </button>
+        )}
+
         <button onClick={handleEditBtn}>Edit</button>
       </div>
       <div className="detail-wrapper" style={{ backgroundColor: task.theme }}>

@@ -266,6 +266,26 @@
   height: 100%;
 }
 
+.modal-mobile-wrapper {
+  width: calc(100% - 1rem);
+  .modal-div {
+    width: 100%;
+  }
+  .modal-length-input {
+    width: 27%;
+    font-size: 20px;
+  }
+  .modal-title-input {
+    width: 100%;
+    font-size: 20px;
+  }
+  .modal-div-length {
+    div {
+      margin: 0;
+    }
+  }
+}
+
 .btn-direction-wrap {
   display: flex;
   align-items: center;

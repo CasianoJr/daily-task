@@ -2,11 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { useRecoilCallback, useRecoilState, useSetRecoilState } from "recoil";
 import { modalTaskState, selectedIdState, taskIdListState, taskStateFamily } from "../../store";
+import { useMobileQueryPage } from "../../hooks/useMobileQueryPage";
 
 const ConfigureTaskDialog = () => {
   const [{ open, payload }, setModal] = useRecoilState(modalTaskState);
   const [localTask, setLocalTask] = useState(payload);
   const setSelectedId = useSetRecoilState(selectedIdState);
+  const priorityPage = useMobileQueryPage();
+
   const modalRef = useRef<any>();
 
   useEffect(() => {
@@ -44,7 +47,7 @@ const ConfigureTaskDialog = () => {
 
   return (
     <div className="modal-background" style={{ display: open ? "" : "none" }}>
-      <div className="modal-wrapper">
+      <div className={`modal-wrapper ${priorityPage && "modal-mobile-wrapper"}`}>
         <div className="modal-header">Configure Task</div>
         <div className="modal-content-wrap">
           <div className="modal-div">
@@ -56,7 +59,7 @@ const ConfigureTaskDialog = () => {
               value={localTask.title}
             ></input>
           </div>
-          <div className="modal-div">
+          <div className="modal-div modal-div-length">
             <div className="modal-div-1">
               <span>
                 <Icon icon="ic:baseline-access-time" width={20} />
