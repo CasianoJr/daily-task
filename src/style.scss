@@ -8,7 +8,6 @@
   max-width: 500px;
   width: 500px;
   margin: auto;
-  min-height: 800px;
   background-color: #ffffff;
   overflow-y: scroll;
   max-height: 100vh;
@@ -42,6 +41,9 @@
     stroke: #007aec;
     transform: scale(1.3);
   }
+}
+.list-task-wrapper {
+  min-height: 65vh;
 }
 
 .task-main-wrap {
@@ -98,7 +100,7 @@
 
 .detail-wrapper {
   font-weight: 600;
-  min-height: 600px;
+  min-height: 65vh;
   margin: 1rem 2rem;
   padding: 1.5rem 1.5rem;
   border-radius: 1rem;
@@ -171,7 +173,29 @@
     color: #989898;
   }
 }
-
+@media screen and (max-width: 750px) {
+  .detail-wrapper {
+    margin: auto;
+  }
+  .detail-row-2 .detail-main-title {
+    font-size: 20px;
+  }
+  .detail-row-2 .detail-time {
+    font-size: 40px;
+  }
+  .detail-row-3 .detail-play-btn {
+    transform: scale(1);
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  .col-1-title {
+    font-size: 12px;
+  }
+  .col-1-title-left {
+    text-align: end;
+  }
+}
 // Modal
 .modal-background {
   position: fixed;
@@ -208,7 +232,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 300px;
+  height: 40vh;
   justify-content: center;
   width: 80%;
   margin: auto;
@@ -298,5 +322,11 @@
   transition: transform 0.4s;
   &:hover {
     transform: scale(1.5);
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .modal-wrapper {
+    height: 60vh;
   }
 }

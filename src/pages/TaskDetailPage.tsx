@@ -64,7 +64,7 @@ export const TaskDetailPage = () => {
           <div className="detail-wrapper" style={{ backgroundColor: task.theme }}>
             <div className="detail-row-1">
               <div className="detail-elapsed-wrap">
-                <div className="col-1-title"> Minitues Elapsed</div>
+                <div className="col-1-title"> Minutes Elapsed</div>
                 <div className="col-1-timed-wrap">
                   <span>
                     <Icon icon="material-symbols:hourglass-bottom-rounded" width={40} />
@@ -73,7 +73,7 @@ export const TaskDetailPage = () => {
                 </div>
               </div>
               <div className="detail-elapsed-left-wrap">
-                <div className="col-1-title"> Minitues Remaining</div>
+                <div className="col-1-title col-1-title-left"> Minutes Remaining</div>
                 <div className="col-1-timed-wrap">
                   <span>{task.runningTime.toFixed(1)}</span>
                   <span>
