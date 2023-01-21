@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { useRecoilCallback, useRecoilState, useSetRecoilState } from "recoil";
-import { modalTaskState, selectedIdState, taskIdListState, taskStateFamily } from "../../store";
-import { useMobileQueryPage } from "../../hooks/useMobileQueryPage";
+import { modalTaskState, selectedIdState, taskIdListState, taskStateFamily } from "../store";
+import { useMobileQueryPage } from "../hooks/useMobileQueryPage";
 
-const ConfigureTaskDialog = () => {
+export const ConfigureTaskDialog = () => {
   const [{ open, payload }, setModal] = useRecoilState(modalTaskState);
   const [localTask, setLocalTask] = useState(payload);
   const setSelectedId = useSetRecoilState(selectedIdState);
@@ -108,5 +108,3 @@ const ConfigureTaskDialog = () => {
     </div>
   );
 };
-
-export default ConfigureTaskDialog;

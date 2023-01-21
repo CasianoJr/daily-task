@@ -1,4 +1,5 @@
 import React from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Icon } from "@iconify/react";
 import {
   modalTaskState,
@@ -6,16 +7,15 @@ import {
   selectedIdState,
   taskIdListState,
   taskStateFamily,
-} from "../../store";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+} from "../store";
+import { useMobileQueryPage } from "../hooks/useMobileQueryPage";
 
-const uuid = () => {
-  return Date.now().toString();
-};
+const uuid = () => Date.now().toString();
 
 export const TaskListPage = () => {
   const taskIdList = useRecoilValue(taskIdListState);
   const setModal = useSetRecoilState(modalTaskState);
+  const priorityPage = useMobileQueryPage();
 
   const handleAddBtn = () => {
     setModal({
@@ -34,8 +34,10 @@ export const TaskListPage = () => {
     });
   };
 
+  if (priorityPage === "detailPage") return null;
+
   return (
-    <>
+    <div className="app-wrapper">
       <div className="task-create-wrap-btn" onClick={handleAddBtn}>
         <button>
           <Icon icon="material-symbols:add" width={"100%"} />
@@ -49,7 +51,7 @@ export const TaskListPage = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
